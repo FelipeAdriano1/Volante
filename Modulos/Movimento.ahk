@@ -2,7 +2,9 @@
 ; ===== MOVIMENTO DO VOLANTE =====
 
 Mexeu(x, y) {
-    global totalY, pos, referenciaFisica, LIMITE, SINAL, volante, EIXO, CENTRO
+    global totalY, pos, referenciaFisica, SINAL
+    global LIMITE_ESQUERDO, LIMITE_DIREITO
+    global volante, EIXO, CENTRO
     global falhaEixoRegistrada
     global calibrando, calibracaoContagem
 
@@ -14,9 +16,15 @@ Mexeu(x, y) {
     }
 
     pos := (totalY - referenciaFisica) * SINAL
-    pos := Max(-LIMITE, Min(LIMITE, pos))
 
-    eixo := Round(CENTRO + (CENTRO * pos / LIMITE))
+    if (pos < 0) {
+        pos := Max(-LIMITE_ESQUERDO, pos)
+        eixo := Round(CENTRO + (CENTRO * pos / LIMITE_ESQUERDO))
+    }
+    else {
+        pos := Min(LIMITE_DIREITO, pos)
+        eixo := Round(CENTRO + (CENTRO * pos / LIMITE_DIREITO))
+    }
 
     try {
         resultado := volante.SetAxisByIndex(eixo, EIXO)

@@ -57,7 +57,6 @@ calibracaoContagem := 0
 MsgBox, 64, Calibracao, Retorno registrado!`n`nAgora gire 2,5 voltas para a direita e pressione F12.
 return
 
-
 F12::
 if (!calibrando || calibracaoEtapa != 3) {
     MsgBox, 48, Calibracao, Complete as etapas anteriores antes de registrar a direita.
@@ -71,8 +70,41 @@ if (calibracaoDireita <= 0) {
     return
 }
 
+; ===== APLICAR LIMITES CALIBRADOS =====
+
+LIMITE_ESQUERDO := calibracaoEsquerda
+LIMITE_DIREITO := calibracaoDireita
+
+; Define a referencia fisica no ponto extremo direito
+referenciaFisica := totalY - calibracaoContagem
+
+; Calcula a posicao atual
+pos := (totalY - referenciaFisica) * SINAL
+
+if (pos < 0)
+    eixo := Round(CENTRO + (CENTRO * pos / LIMITE_ESQUERDO))
+else
+    eixo := Round(CENTRO + (CENTRO * pos / LIMITE_DIREITO))
+
+; Atualiza o eixo virtual
+if (!volante.SetAxisByIndex(eixo, EIXO))
+    RegistrarErro("Falha ao atualizar eixo apos a calibracao.")
+
+; ===== SALVAR NO CONFIG.INI =====
+
+IniWrite, %LIMITE_ESQUERDO%, %ConfigPath%, Volante, LimiteEsquerdo
+erroEsquerdo := ErrorLevel
+
+IniWrite, %LIMITE_DIREITO%, %ConfigPath%, Volante, LimiteDireito
+erroDireito := ErrorLevel
+
 calibrando := false
 calibracaoEtapa := 0
 
-MsgBox, 64, Calibracao concluida, Calibracao finalizada!`n`nLimite esquerdo: %calibracaoEsquerda%`nLimite direito: %calibracaoDireita%`nRetorno: %calibracaoRetorno%`n`nEsses valores ainda nao foram salvos no Config.ini.
+if (erroEsquerdo || erroDireito) {
+    MsgBox, 48, Calibracao, Calibracao aplicada na memoria, mas houve uma falha ao salvar os valores no Config.ini.
+}
+else {
+    MsgBox, 64, Calibracao concluida, Calibracao finalizada com sucesso!`n`nLimite esquerdo: %LIMITE_ESQUERDO%`nLimite direito: %LIMITE_DIREITO%`nRetorno: %calibracaoRetorno%`n`nValores salvos no Config.ini.
+}
 return

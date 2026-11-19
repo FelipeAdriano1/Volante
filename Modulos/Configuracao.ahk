@@ -8,6 +8,8 @@ VID := VID + 0
 PID := PID + 0
 
 IniRead, LIMITE, %ConfigPath%, Volante, Limite, 9900
+IniRead, LIMITE_ESQUERDO, %ConfigPath%, Volante, LimiteEsquerdo, %LIMITE%
+IniRead, LIMITE_DIREITO, %ConfigPath%, Volante, LimiteDireito, %LIMITE%
 IniRead, SINAL, %ConfigPath%, Volante, Sinal, 1
 IniRead, EIXO, %ConfigPath%, Volante, Eixo, 2
 IniRead, CENTRO, %ConfigPath%, Volante, Centro, 16384

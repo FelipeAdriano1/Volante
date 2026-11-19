@@ -71,3 +71,9 @@
 2026-11-19 10:10:17 | Falha ao centralizar o volante.
 2026-11-19 10:10:18 | Falha ao centralizar o volante.
 2026-11-19 10:20:08 | Falha ao enviar movimento para o vJoy.
+2026-11-19 10:47:53 | Falha ao enviar movimento para o vJoy.
+2026-11-19 10:48:10 | Falha ao enviar movimento para o vJoy.
+2026-11-19 10:52:19 | Falha ao enviar movimento para o vJoy.
+2026-11-19 10:52:38 | Falha ao atualizar eixo apos a calibracao.
+2026-11-19 10:53:20 | Falha ao atualizar eixo apos a calibracao.
+2026-11-19 10:53:22 | Falha ao enviar movimento para o vJoy.
