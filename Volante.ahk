@@ -186,19 +186,17 @@ AssinarMouse(idMouse) {
 
 ; ===== MOVIMENTO DO VOLANTE =====
 
-; ===== MOVIMENTO DO VOLANTE =====
-
 Mexeu(x, y) {
     global totalY, pos, LIMITE, SINAL, volante, EIXO, CENTRO
     global falhaEixoRegistrada
 	global calibrando, calibracaoContagem
 	
+    totalY += y
 	if (calibrando) {
         calibracaoContagem += y
         return
     }
 
-    totalY += y
     pos += y * SINAL
     pos := Max(-LIMITE, Min(LIMITE, pos))
 
