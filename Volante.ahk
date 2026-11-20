@@ -80,4 +80,4 @@ return
 #Include %A_ScriptDir%\Modulos\Erros.ahk
 #Include %A_ScriptDir%\Modulos\Scroll.ahk
 
-Esc::ExitApp
+^!End::ExitApp
